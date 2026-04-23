@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeXP - RPG de Produtividade</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="phone">
+        <!-- TELA HOME -->
+        <div id="home" class="screen active">
+            <div class="home-content">
+                <h1>🎮 LifeXP</h1>
+                <p class="subtitle">RPG de Produtividade</p>
+                
+                <div class="player-display">
+                    <div class="player-avatar" id="playerAvatar">👤</div>
+                    <div class="player-info">
+                        <p class="xp-total">XP Total: <span id="xpDisplay">0</span></p>
+                        <div class="xp-bar">
+                            <div class="xp-fill" id="xpFill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-buttons">
+                    <button class="btn-primary" onclick="abrirTela('atividades')">🎯 Atividades</button>
+                    <button class="btn-primary" onclick="abrirTela('loja')">🛍️ Loja de Skins</button>
+                    <button class="btn-primary" onclick="abrirTela('historico')">📊 Histórico</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TELA ATIVIDADES -->
+        <div id="atividades" class="screen">
+            <div class="header">
+                <button class="btn-voltar" onclick="abrirTela('home')">← Voltar</button>
+                <h2>🎯 Atividades</h2>
+                <div class="xp-badge" id="xpBadge">0 XP</div>
+            </div>
+
+            <div class="atividades-container">
+                <!-- Quiz -->
+                <div class="card-atividade" onclick="iniciarAtividade('quiz')">
+                    <div class="card-icon">❓</div>
+                    <div class="card-info">
+                        <h3>Quiz</h3>
+                        <p class="xp-reward">+50 XP</p>
+                        <p class="card-desc">Responda perguntas</p>
+                    </div>
+                    <div class="card-arrow">→</div>
+                </div>
+
+                <!-- Estudar -->
+                <div class="card-atividade" onclick="iniciarAtividade('estudar')">
+                    <div class="card-icon">📚</div>
+                    <div class="card-info">
+                        <h3>Estudar</h3>
+                        <p class="xp-reward">+75 XP</p>
+                        <p class="card-desc">Estude um tópico</p>
+                    </div>
+                    <div class="card-arrow">→</div>
+                </div>
+
+                <!-- Ler -->
+                <div class="card-atividade" onclick="iniciarAtividade('ler')">
+                    <div class="card-icon">📖</div>
+                    <div class="card-info">
+                        <h3>Ler</h3>
+                        <p class="xp-reward">+60 XP</p>
+                        <p class="card-desc">Leia um artigo</p>
+                    </div>
+                    <div class="card-arrow">→</div>
+                </div>
+
+                <!-- Exercitar -->
+                <div class="card-atividade" onclick="iniciarAtividade('exercitar')">
+                    <div class="card-icon">💪</div>
+                    <div class="card-info">
+                        <h3>Exercitar</h3>
+                        <p class="xp-reward">+80 XP</p>
+                        <p class="card-desc">Faça exercícios</p>
+                    </div>
+                    <div class="card-arrow">→</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TELA QUIZ -->
+        <div id="quiz" class="screen">
+            <div class="header">
+                <button class="btn-voltar" onclick="abrirTela('atividades')">← Voltar</button>
+                <h2>❓ Quiz</h2>
+            </div>
+
+            <div class="quiz-container">
+                <div id="quizContent">
+                    <div class="pergunta-numero">Pergunta <span id="perguntaNum">1</span>/3</div>
+                    <h3 id="pergunta">Carregando pergunta...</h3>
+                    
+                    <div class="opcoes" id="opcoes"></div>
+
+                    <div class="quiz-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="quizResultado" class="resultado-container" style="display: none;">
+                    <div class="resultado-icon">✅</div>
+                    <h3>Quiz Completo!</h3>
+                    <p class="xp-ganho">+50 XP</p>
+                    <button class="btn-primary" onclick="finalizarAtividade()">Voltar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TELA ESTUDAR -->
+        <div id="estudar" class="screen">
+            <div class="header">
+                <button class="btn-voltar" onclick="abrirTela('atividades')">← Voltar</button>
+                <h2>📚 Estudar</h2>
+            </div>
+
+            <div class="atividade-container">
+                <div class="topico-card">
+                    <h3 id="topicoTitulo">Carregando...</h3>
+                    <p id="topicoDesc">Descrição do tópico</p>
+                </div>
+
+                <div class="tempo-estudo">
+                    <label>Tempo de Estudo (minutos):</label>
+                    <input type="number" id="tempoEstudo" min="5" max="120" value="15" class="input-tempo">
+                </div>
+
+                <button class="btn-primary" onclick="confirmarEstudo()">✅ Confirmar Estudo</button>
+            </div>
+        </div>
+
+        <!-- TELA LER -->
+        <div id="ler" class="screen">
+            <div class="header">
+                <button class="btn-voltar" onclick="abrirTela('atividades')">← Voltar</button>
+                <h2>📖 Ler</h2>
+            </div>
+
+            <div class="atividade-container">
+                <div class="artigo-card">
+                    <h3 id="artigoTitulo">Carregando artigo...</h3>
+                    <p id="artigoTexto">Texto do artigo aqui...</p>
+                </div>
+
+                <button class="btn-primary" onclick="confirmarLeitura()">✅ Confirmar Leitura</button>
+            </div>
+        </div>
+
+        <!-- TELA EXERCITAR -->
+        <div id="exercitar" class="screen">
+            <div class="header">
+                <button class="btn-voltar" onclick="abrirTela('atividades')">← Voltar</button>
+                <h2>💪 Exercitar</h2>
+            </div>
+
+            <div class="atividade-container">
+                <div class="exercicio-card">
+                    <h3 id="exercicioTitulo">Carregando exercício...</h3>
+                    <p id="exercicioDesc">Descrição do exercício</p>
+                </div>
+
+                <div class="series-input">
+                    <label>Séries Completadas:</label>
+                    <input type="number" id="seriesCompletas" min="1" max="10" value="3" class="input-series">
+                </div>
+
+                <button class="btn-primary" onclick="confirmarExercicio()">✅ Confirmar Exercício</button>
+            </div>
+        </div>
+
+        <!-- TELA LOJA -->
+        <div id="loja" class="screen">
+            <div class="header">
+                <button class="btn-voltar" onclick="abrirTela('home')">← Voltar</button>
+                <h2>🛍️ Loja de Skins</h2>
+                <div class="xp-saldo">XP: <span id="xpSaldo">0</span></div>
+            </div>
+
+            <div class="loja-container" id="lojaContainer">
+                <!-- Skins serão adicionadas aqui pelo JavaScript -->
+            </div>
+        </div>
+
+        <!-- TELA HISTÓRICO -->
+        <div id="historico" class="screen">
+            <div class="header">
+                <button class="btn-voltar" onclick="abrirTela('home')">← Voltar</button>
+                <h2>📊 Histórico</h2>
+            </div>
+
+            <div class="historico-container">
+                <div id="historicoLista" class="historico-lista">
+                    <p class="vazio">Nenhuma atividade realizada ainda</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
